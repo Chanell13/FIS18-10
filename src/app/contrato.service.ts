@@ -10,7 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class ContratoService {
 
   private contratosUrl = '/api/v1';
-
+  nct: Number;
   constructor(
     private http: HttpClient
   ) { }
@@ -57,6 +57,12 @@ export class ContratoService {
         catchError(this.handleError('getContratos', []))
       );
   }
+
+  getContrato2(contrato: Number) {
+    return this.http.get(this.contratosUrl + '/contratos/' + contrato);
+  }
+
+
 
   addContrato(contrato: Contrato): Observable<any> {
     // tslint:disable-next-line:prefer-const

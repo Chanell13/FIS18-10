@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Contrato } from '../contrato';
 import { ContratoService } from '../contrato.service';
+import { Router } from '@angular/router';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[app-editable-contrato]',
@@ -8,17 +9,23 @@ import { ContratoService } from '../contrato.service';
   styleUrls: ['./editable-contrato.component.css']
 })
 export class EditableContratoComponent implements OnInit {
-  constructor(private contratoService: ContratoService) { }
 
+  constructor(private contratoService: ContratoService, private router: Router) { }
+
+  // tslint:disable-next-line:member-ordering
   @Input() contrato: Contrato;
 
+  // tslint:disable-next-line:member-ordering
   editing = false;
-  oldNumber ;
+  // tslint:disable-next-line:member-ordering
+  oldNumber;
+  // tslint:disable-next-line:member-ordering
   deleting = false;
 
   // tslint:disable-next-line:member-ordering
   title = '';
   msg = true;
+
   onEdit(): void {
     this.editing = !this.editing;
 
@@ -45,7 +52,10 @@ export class EditableContratoComponent implements OnInit {
   }
 
   onPrint(): void {
-    console.log(this.contrato.NoCandidato);
+    this.contratoService.nct = this.contrato.NoCandidato;
+    alert(this.contratoService.nct);
+    // this.contrato.NoContrato
+    this.router.navigateByUrl('/detalles');
   }
   onDelete(): void {
     this.deleting = !this.deleting;

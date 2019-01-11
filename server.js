@@ -21,6 +21,14 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, CONTACTS_APP_DIR, '/index.html'));
 });
 
+app.get('/formulario', function (req, res) {
+    res.sendFile(path.join(__dirname, CONTACTS_APP_DIR, '/index.html'));
+});
+
+app.get('/detalles', function (req, res) {
+    res.sendFile(path.join(__dirname, CONTACTS_APP_DIR, '/index.html'));
+});
+
 app.get(BASE_API_PATH + "/contratos:NoCandidato", (req, res) => {
     // Obtain all contratos
     console.log(Date() + " - GET /contratos");
@@ -90,7 +98,7 @@ app.post(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
 
     res.sendStatus(405);
 });
- 
+
 app.get(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
     // Get a single contrato
     var NoCandidato = req.params.NoCandidato;
@@ -133,13 +141,13 @@ app.delete(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
             }
         }
     });
-}); 
- 
+});
+
 app.put(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
     // Update contrato
     var NoCandidato = req.params.NoCandidato;
     var updatedcontrato = req.body;
-    console.log(Date() + " - PUT /contratos/" + NoCandidato); 
+    console.log(Date() + " - PUT /contratos/" + NoCandidato);
 
     contratosdb.replaceOne({ "NoCandidato": NoCandidato }, updatedcontrato, (err, numUpdated) => {
         if (err) {
@@ -153,12 +161,12 @@ app.put(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
             } else {
                 res.sendStatus(200);
             }
-        } 
+        }
     });
 });
 
 
-module.exports.app = app; 
+module.exports.app = app;
 
 // var initialcontratos = [
 
