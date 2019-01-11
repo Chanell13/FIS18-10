@@ -15,7 +15,7 @@ install:
 
 script: 
   - ng build --prod --aot
-  # - npm test
+  - npm test
    # build docker images
   - docker build -t contratos .
  
