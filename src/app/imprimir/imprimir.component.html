@@ -1,3 +1,51 @@
-<p>
-  imprimir works!
-</p>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>HTML Table</h2>
+
+<table>
+  <tr>
+    <th>Datos del contratado</th> 
+    <th></th>
+  </tr>
+  <tr>
+    <td>nombre del candidato:</td>
+    <td>{{contrato.nomobre}} {{contrato.apellido}}</td> 
+  </tr>
+  <tr>
+    <td>Puesto</td>
+    <td>{{contrato.puesto}}</td> 
+  </tr>
+  <tr>
+    <td>Tipo de Contrato</td>
+    <td>{{contrato.TipoContrato}}</td> 
+  </tr>
+  <tr>
+    <td>sueldo</td>
+    <td>{{contrato.sueldo}}</td> 
+  </tr>
+</table>
+
+</body>
+</html>
+ 

@@ -20,6 +20,6 @@
 <td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.FechaInicio" /></td>
 <td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.FechaFin" /></td>
 
-<!-- <td><button class="btn btn-warning" (click)="onEdit()">{{editing ? 'Save' : 'Edit'}}</button></td> -->
-<td><button class= "btn '+ ({{editing}} ? 'btn-warning' : 'btn-info')'" (click)="onEdit()">{{editing ? 'Save' : 'Edit'}}</button></td>
+<td><button class="btn btn-warning" (click)="onEdit()">{{editing ? 'Save' : 'Edit'}}</button></td>
+<!-- <td><button class= "btn '+ ({{editing}} ? 'btn-warning' : 'btn-info')'" (click)="onEdit()">{{editing ? 'Save' : 'Edit'}}</button></td> -->
 <td><button class="btn btn-danger" (click)="onDelete()"> Delete </button></td>
