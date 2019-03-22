@@ -17,9 +17,20 @@ var contratoSchema = new mongoose.Schema(
         FechaFin: String,
     }
 );
- 
+
 contratoSchema.methods.cleanup = function () {
-    // return { name: this.name, phone: this.phone };
+    // return {
+    //     NoCandidato: this.NoCandidato,
+    //     Nombre: this.Nombre,
+    //     Apellido: this.Apellido,
+    //     Puesto: this.Puesto,
+    //     Categoria: this.Categoria,
+    //     TipoContrato: this.TipoContrato,
+    //     Sueldo: this.Sueldo,
+    //     NoContrato: this.NoContrato,
+    //     FechaInicio: this.FechaInicio,
+    //     FechaFin: this.FechaFin
+    // };
 }
 
 var contrato = mongoose.model('contrato', contratoSchema);

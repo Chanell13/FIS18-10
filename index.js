@@ -1,4 +1,4 @@
-require('./db');
+var db = require('./db');
 require('./setupdb');
 var server = require('./server');
 var PORT = process.env.PORT || 4000;
