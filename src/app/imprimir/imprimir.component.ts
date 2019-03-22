@@ -9,12 +9,12 @@ import { Contrato } from '../contrato';
 })
 export class ImprimirComponent implements OnInit {
   @Input() NoContrato: Number;
-
+  @Input() key: String;
   constructor(private contratoService: ContratoService) { }
   contrato: any;
   ngOnInit() {
 
-    this.contratoService.getContrato2(this.contratoService.nct).subscribe((contrato) => {
+    this.contratoService.getContrato2(this.contratoService.nct, this.contratoService.key).subscribe((contrato) => {
       this.contrato = contrato;
     });
     console.log(Contrato);

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Contrato } from '../contrato';
 import { ContratoService } from '../contrato.service';
 import { Router } from '@angular/router';
+import { Key } from 'protractor';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[app-editable-contrato]',
@@ -14,6 +15,7 @@ export class EditableContratoComponent implements OnInit {
 
   // tslint:disable-next-line:member-ordering
   @Input() contrato: Contrato;
+  @Input() key: String;
 
   // tslint:disable-next-line:member-ordering
   editing = false;
@@ -34,7 +36,7 @@ export class EditableContratoComponent implements OnInit {
     } else {
 
       // update
-      this.contratoService.updateContrato2(this.oldNumber, this.contrato).subscribe(
+      this.contratoService.updateContrato2(this.oldNumber, this.contrato, this.contratoService.key).subscribe(
         res => {
           alert(res);
         },
@@ -60,7 +62,7 @@ export class EditableContratoComponent implements OnInit {
   onDelete(): void {
     this.deleting = !this.deleting;
 
-    this.contratoService.deleteContrato2(this.contrato).subscribe();
+    this.contratoService.deleteContrato2(this.contrato, this.contratoService.key).subscribe();
     setTimeout(() => { location.reload(); }, 1200);
     //  refresca la pagina completa
   }

@@ -11,6 +11,7 @@ export class ContratoService {
 
   private contratosUrl = '/api/v1';
   nct: Number;
+  key: String;
   constructor(
     private http: HttpClient
   ) { }
@@ -40,8 +41,8 @@ export class ContratoService {
     };
   }
 
-  getContratos(): Observable<Contrato[]> {
-    const url = `${this.contratosUrl}/contratos`;
+  getContratos(key): Observable<Contrato[]> {
+    const url = `${this.contratosUrl}/contratos?apikey=${key}`;
     return this.http.get<Contrato[]>(url)
       .pipe(
         tap(() => this.log('fetched contratos')),
@@ -49,8 +50,8 @@ export class ContratoService {
       );
   }
 
-  getContrato(id: string): any {
-    const url = `${this.contratosUrl}/contratos/${id}`;
+  getContrato(id: string, key): any {
+    const url = `${this.contratosUrl}/contratos/${id}?apikey=${key}`;
     return this.http.get<Contrato>(url)
       .pipe(
         tap(() => this.log('fetched contratos')),
@@ -58,16 +59,16 @@ export class ContratoService {
       );
   }
 
-  getContrato2(contrato: Number) {
-    return this.http.get(this.contratosUrl + '/contratos/' + contrato);
+  getContrato2(contrato: Number, key) {
+    return this.http.get(this.contratosUrl + '/contratos/' + contrato + '?apikey=' + key);
   }
 
 
 
-  addContrato(contrato: Contrato): Observable<any> {
+  addContrato(contrato: Contrato, key): Observable<any> {
     // tslint:disable-next-line:prefer-const
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.contratosUrl}/contratos`;
+    const url = `${this.contratosUrl}/contratos?apikey=${key}`;
     return this.http.post(url, contrato, { responseType: 'text', headers: headers })
       .pipe(
         tap(() => this.log(`add contrato NoContrato =${contrato.NoContrato}`)),
@@ -75,10 +76,10 @@ export class ContratoService {
       );
   }
 
-  updateContrato(contrato: Contrato): Observable<any> {
+  updateContrato(contrato: Contrato, key): Observable<any> {
     // tslint:disable-next-line:prefer-const
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.contratosUrl}/contratos/${contrato.NoContrato}`;
+    const url = `${this.contratosUrl}/contratos/${contrato.NoContrato}?apikey=${key}`;
     return this.http.put(url, contrato, { responseType: 'text', headers: headers })
       .pipe(
         tap(() => this.log(`updated contrato NoContrato=${contrato.NoContrato}`)),
@@ -87,10 +88,10 @@ export class ContratoService {
   }
 
 
-  deleteContrato(contrato: Contrato): Observable<any> {
+  deleteContrato(contrato: Contrato, key): Observable<any> {
     // tslint:disable-next-line:prefer-const
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.contratosUrl}/contratos/${contrato.NoCandidato}`;
+    const url = `${this.contratosUrl}/contratos/${contrato.NoCandidato}?apikey=${key}`;
     return this.http.delete(url, { responseType: 'text', headers: headers })
       .pipe(
         tap(() => this.log(`delete contrato NoCandidato=${contrato.NoCandidato}`)),
@@ -98,12 +99,12 @@ export class ContratoService {
       );
   }
 
-  updateContrato2(name, contrato: Contrato) {
-    return this.http.put(this.contratosUrl + '/contratos/' + name, contrato);
+  updateContrato2(name, contrato: Contrato, key) {
+    return this.http.put(this.contratosUrl + '/contratos/' + name + '?apikey=' + key, contrato);
   }
 
-  deleteContrato2(contrato: Contrato) {
-    return this.http.delete(this.contratosUrl + '/contratos/' + contrato.NoContrato);
+  deleteContrato2(contrato: Contrato, key) {
+    return this.http.delete(this.contratosUrl + '/contratos/'  + contrato.NoContrato  + '?apikey=' + key);
   }
 
 }
