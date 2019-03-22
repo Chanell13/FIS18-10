@@ -6,15 +6,40 @@ var morgan = require('morgan');
 var path = require('path')
 var contratosdb = require('./contratoModeldb');
 const CONTACTS_APP_DIR = "/dist/contrato-int";
+var ApiKey = require('./apikeys');
 
+var passport = require('passport');
+var LocalAPIKey = require('passport-localapikey-update').Strategy;
 var BASE_API_PATH = "/api/v1";
 // var dbFileName = __dirname + "/contratos.json"; 
+
+
+
+passport.use(new LocalAPIKey(
+    (apikey, done) => {
+
+        if (apikey == 'asdf') {
+            //console.log("Logged as: " + user.user);
+            return done(null, true);
+        } else
+            ApiKey.findOne({ apikey: apikey }, (err, user) => {
+                if (err) { return done(err); }
+                if (!user) {
+                    return done(null, false, { message: 'Unknown apikey ' + apikey });
+                } else {
+                    console.log("Logged as: " + user.user);
+                    return done(null, user);
+                }
+            });
+    }
+));
 
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, CONTACTS_APP_DIR)));
+app.use(passport.initialize());
 
 
 app.get('/', function (req, res) {
@@ -29,52 +54,58 @@ app.get('/detalles', function (req, res) {
     res.sendFile(path.join(__dirname, CONTACTS_APP_DIR, '/index.html'));
 });
 
-app.get(BASE_API_PATH + "/contratos:NoCandidato", (req, res) => {
-    // Obtain all contratos
-    console.log(Date() + " - GET /contratos");
+app.get(BASE_API_PATH + "/contratos:NoCandidato",
+    passport.authenticate('localapikey', { session: false }),
+    (req, res) => {
+        // Obtain all contratos
+        console.log(Date() + " - GET /contratos");
 
-    contratosdb.find({}, (err, contratos) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatus(500);
-        } else {
-            res.send(contratos.map((contrato) => {
-                delete contrato._id;
-                return contrato;
-            }));
-        }
+        contratosdb.find({}, (err, contratos) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
+            } else {
+                res.send(contratos.map((contrato) => {
+                    delete contrato._id;
+                    return contrato;
+                }));
+            }
+        });
+
     });
 
-});
+app.get(BASE_API_PATH + "/contratos",
+    passport.authenticate('localapikey', { session: false }),
+    (req, res) => {
+        // Obtain all contratos
+        console.log(Date() + " - GET /contratos");
 
-app.get(BASE_API_PATH + "/contratos", (req, res) => {
-    // Obtain all contratos
-    console.log(Date() + " - GET /contratos");
+        contratosdb.find({}, (err, contratos) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
+            } else {
+                res.send(contratos.map((contrato) => {
+                    delete contrato._id;
+                    return contrato;
+                }));
+            }
+        });
 
-    contratosdb.find({}, (err, contratos) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatus(500);
-        } else {
-            res.send(contratos.map((contrato) => {
-                delete contrato._id;
-                return contrato;
-            }));
-        }
     });
 
-});
+app.post(BASE_API_PATH + "/contratos",
+    passport.authenticate('localapikey', { session: false }),
+    (req, res) => {
+        // Create a new contrato
+        console.log(Date() + " - POST /contratos");
 
-app.post(BASE_API_PATH + "/contratos", (req, res) => {
-    // Create a new contrato
-    console.log(Date() + " - POST /contratos");
+        var contrato = req.body;
 
-    var contrato = req.body;
+        contratosdb.create(contrato);
 
-    contratosdb.create(contrato);
-
-    res.sendStatus(201);
-});
+        res.sendStatus(201);
+    });
 
 app.put(BASE_API_PATH + "/contratos", (req, res) => {
     // Forbidden
@@ -99,71 +130,77 @@ app.post(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
     res.sendStatus(405);
 });
 
-app.get(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
-    // Get a single contrato
-    var NoCandidato = req.params.NoCandidato;
-    console.log(Date() + " - GET /contratos/" + NoCandidato);
+app.get(BASE_API_PATH + "/contratos/:NoCandidato",
+    passport.authenticate('localapikey', { session: false }),
+    (req, res) => {
+        // Get a single contrato
+        var NoCandidato = req.params.NoCandidato;
+        console.log(Date() + " - GET /contratos/" + NoCandidato);
 
-    contratosdb.find({ "NoCandidato": NoCandidato }, (err, contratos) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatus(500);
-        } else {
-            if (contratos.length > 1) {
-                console.warn("Incosistent DB: duplicated name");
-            }
-            res.send(contratos.map((contrato) => {
-                delete contrato._id;
-                return contrato;
-            })[0]);
-        }
-    });
-});
-
-
-app.delete(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
-    // Delete a single contrato
-    var NoCandidato = req.params.NoCandidato
-
-    console.log(Date() + " - DELETE /contratos/" + NoCandidato);
-
-    contratosdb.deleteMany({ NoCandidato: NoCandidato }, {}, (err, numRemoved) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatus(500);
-        } else {
-            if (numRemoved > 1) {
-                console.warn("Incosistent DB: duplicated name");
-            } else if (numRemoved == 0) {
-                res.sendStatus(404);
+        contratosdb.find({ "NoCandidato": NoCandidato }, (err, contratos) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
             } else {
-                res.sendStatus(200);
+                if (contratos.length > 1) {
+                    console.warn("Incosistent DB: duplicated name");
+                }
+                res.send(contratos.map((contrato) => {
+                    delete contrato._id;
+                    return contrato;
+                })[0]);
             }
-        }
+        });
     });
-});
 
-app.put(BASE_API_PATH + "/contratos/:NoCandidato", (req, res) => {
-    // Update contrato
-    var NoCandidato = req.params.NoCandidato;
-    var updatedcontrato = req.body;
-    console.log(Date() + " - PUT /contratos/" + NoCandidato);
 
-    contratosdb.replaceOne({ "NoCandidato": NoCandidato }, updatedcontrato, (err, numUpdated) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatus(500);
-        } else {
-            if (numUpdated > 1) {
-                console.warn("Incosistent DB: duplicated name");
-            } else if (numUpdated == 0) {
-                res.sendStatus(404);
+app.delete(BASE_API_PATH + "/contratos/:NoCandidato",
+    passport.authenticate('localapikey', { session: false }),
+    (req, res) => {
+        // Delete a single contrato
+        var NoCandidato = req.params.NoCandidato
+
+        console.log(Date() + " - DELETE /contratos/" + NoCandidato);
+
+        contratosdb.deleteMany({ NoCandidato: NoCandidato }, {}, (err, numRemoved) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
             } else {
-                res.sendStatus(200);
+                if (numRemoved > 1) {
+                    console.warn("Incosistent DB: duplicated name");
+                } else if (numRemoved == 0) {
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                }
             }
-        }
+        });
     });
-});
+
+app.put(BASE_API_PATH + "/contratos/:NoCandidato",
+    passport.authenticate('localapikey', { session: false }),
+    (req, res) => {
+        // Update contrato
+        var NoCandidato = req.params.NoCandidato;
+        var updatedcontrato = req.body;
+        console.log(Date() + " - PUT /contratos/" + NoCandidato);
+
+        contratosdb.replaceOne({ "NoCandidato": NoCandidato }, updatedcontrato, (err, numUpdated) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
+            } else {
+                if (numUpdated > 1) {
+                    console.warn("Incosistent DB: duplicated name");
+                } else if (numUpdated == 0) {
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                }
+            }
+        });
+    });
 
 
 module.exports.app = app;

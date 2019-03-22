@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "b2c5f4f3-118f-438b-b665-5007977b0722",
+		"name": "ProyectoFinalContrato",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET/contrato",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/v1/contratos/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"contratos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/contratos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"NoCandidato\": 2, \"Nombre\": \"Rocio\" ,\"Apellido\": \"Gomez\", \r\n \"Puesto\":\"Periodista\", \"Categoria\":\"Gerente\", \"Tipo de contrato\":\"Indeterminado\",\"Sueldo\":100,\"NoContrato\":2,\r\n \"Fecha Inicio\":\"09-01-2019\", \"Fecha Fin\":\"09-03-2019\"}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/v1/contratos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"contratos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put/contratos",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"No.Candidato\": 2, \"Nombre\": \"Laura\" ,\"Apellido\": \"Amigo\", \r\n    \"Puesto\":\"Periodista\", \"Categoria\":\"Gerente\", \"Tipo de contrato\":\"Indeterminado\",\"Sueldo\":100,\"No.Contrato\":2,\r\n    \"Fecha Inicio\":\"09-01-2019\", \"Fecha Fin\":\"09-03-2019\"}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/v1/contratos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"contratos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/v1/contratos/:1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"contratos",
+						":1"
+					],
+					"variable": [
+						{
+							"key": "1",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
