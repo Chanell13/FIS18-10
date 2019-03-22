@@ -1,0 +1,21 @@
+<td *ngIf="! deleting">{{contrato.NoContrato}}</td>
+<td *ngIf="! deleting">{{contrato.Nombre}}</td>
+<td *ngIf="! deleting">{{contrato.Apellido}}</td>
+<td *ngIf="! deleting">{{contrato.Puesto}}</td>
+<td *ngIf="! deleting">{{contrato.Categoria}}</td>
+<td *ngIf="! deleting">{{contrato.TipoContrato}}</td>
+<td *ngIf="! deleting">{{contrato.Sueldo}}</td>
+<td *ngIf="! deleting">{{contrato.NoCandidato}}</td>
+<td *ngIf="! deleting">{{contrato.FechaInicio}}</td>
+<td *ngIf="! deleting">{{contrato.FechaFin}}</td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.NoContrato"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.Nombre"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.Apellido"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.Puesto"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.Categoria"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.TipoContrato"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.Sueldo"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.NoCandidato"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.FechaInicio"/></td>
+<td *ngIf="deleting"><input class="form-control" [(ngModel)] = "contrato.FechaFin"/></td>
+<td><button class="btn" (click)="onDelete()">{{deleting ? 'Eliminar' : 'Delet'}}</button></td>

@@ -1,0 +1,181 @@
+<div *ngIf="selectedContrato">
+  {{selectedContrato.NoContrato}}
+</div>
+
+<div class="container app">
+
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="text-center">
+        {{title}}
+      </h1>
+    </div>
+    <div class="col-sm-4">
+      <div class="alert alert-success alert-dismissable" *ngIf="msg">
+        <a href="#" class="close" (click)="closeAlert()">
+          &times;
+        </a>
+        {{msg}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <img width="300" src="assets/contract.png" />
+    </div>
+    <div class="col-sm-8">
+      <h2>Crear Contrato:</h2>
+
+      <form class="form-horizontal">
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="NoContrato" class="control-label col-sm-10">
+                Número de Contrato
+              </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" id="NoContrato" name="NoContrato" [(ngModel)]="newContrato.NoContrato"
+                  placeholder="Ingresar número de contrato">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label for="NoCandidato" class="control-label col-sm-15">
+                Número de Candidato
+              </label>
+              <div class="col-sm-11"></div>
+              <input type="text" class="form-control" id="NoCandidato" name="NoCandidato" [(ngModel)]="newContrato.NoCandidato"
+                placeholder="Ingresar número de candidato">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="Nombre" class="control-label col-sm-10">
+                Nombre
+              </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" id="Nombre" name="Nombre" [(ngModel)]="newContrato.Nombre"
+                  placeholder="Ingresar Nombre">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label for="Apellido" class="col-sm-15">
+                Apellido
+              </label>
+              <div class="col-sm-11"></div>
+              <input type="text" class="form-control" id="Apellido" name="Apellido" [(ngModel)]="newContrato.Apellido"
+                placeholder="Ingresar Apellido">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="Puesto" class="control-label col-sm-10">
+                Puesto
+              </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" id="Puesto" name="Puesto" [(ngModel)]="newContrato.Puesto"
+                  placeholder="Ingresar Puesto">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label for="Categoria" class="control-label col-sm-15">
+                Categoría
+              </label>
+              <div class="col-sm-11"></div>
+              <input type="text" class="form-control" id="Categoria" name="Categoria" [(ngModel)]="newContrato.Categoria"
+                placeholder="Ingresar Categoria">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="TipoContrato" class="control-label col-sm-10">
+                Tipo de Contrato
+              </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" id="TipoContrato" name="TipoContrato" [(ngModel)]="newContrato.TipoContrato"
+                  placeholder="Ingresar tipo de contrato">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label for="Sueldo" class="control-label col-sm-15">
+                Sueldo
+              </label>
+              <div class="col-sm-11"></div>
+              <input type="text" class="form-control" id="Sueldo" name="Sueldo" [(ngModel)]="newContrato.Sueldo"
+                placeholder="Ingresar Sueldo">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="FechaInicio" class="control-label col-sm-10">
+                Fecha de Inicio
+              </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" id="FechaInicio" name="FechaInicio" [(ngModel)]="newContrato.FechaInicio"
+                  placeholder="Ingresar fecha de inicio">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label for="FechaFin" class="control-label col-sm-15">
+                Fecha de Fin
+              </label>
+              <div class="col-sm-11"></div>
+              <input type="text" class="form-control" id="FechaFin" name="FechaFin" [(ngModel)]="newContrato.FechaFin"
+                placeholder="Ingresar fecha de fin">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button type="submit" class="btn btn-success" (click)="addContrato()">
+              Save
+            </button>
+
+
+          </div>
+
+        </div>
+
+
+
+      </form>
+
+    </div>
+
+    <table class="w3-table-all">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Candidato</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Puesto</th>
+          <th>Categoria</th>
+          <th>Tipo Contrato</th>
+          <th>Sueldo</th>
+          <th>Contrato</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="w3-hover-blue" *ngFor="let contrato of contratos; let i = index" app-editable-contrato [contrato]="contrato">
+
+
+      </tbody>
+    </table>
+  </div>

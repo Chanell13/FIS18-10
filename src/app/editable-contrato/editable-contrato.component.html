@@ -1,0 +1,25 @@
+<td> <button class="btn btn-success" (click)="onPrint()">print</button> </td>
+<td *ngIf="! editing">{{contrato.NoContrato}}</td>
+<td *ngIf="! editing">{{contrato.Nombre}}</td>
+<td *ngIf="! editing">{{contrato.Apellido}}</td>
+<td *ngIf="! editing">{{contrato.Puesto}}</td>
+<td *ngIf="! editing">{{contrato.Categoria}}</td>
+<td *ngIf="! editing">{{contrato.TipoContrato}}</td>
+<td *ngIf="! editing">{{contrato.Sueldo}}</td>
+<td *ngIf="! editing">{{contrato.NoCandidato}}</td>
+<td *ngIf="! editing">{{contrato.FechaInicio}}</td>
+<td *ngIf="! editing">{{contrato.FechaFin}}</td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.NoContrato" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.Nombre" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.Apellido" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.Puesto" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.Categoria" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.TipoContrato" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.Sueldo" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.NoCandidato" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.FechaInicio" /></td>
+<td *ngIf="editing"><input class="form-control" [(ngModel)]="contrato.FechaFin" /></td>
+
+<td><button class="btn btn-warning" (click)="onEdit()">{{editing ? 'Save' : 'Edit'}}</button></td>
+<!-- <td><button class= "btn '+ ({{editing}} ? 'btn-warning' : 'btn-info')'" (click)="onEdit()">{{editing ? 'Save' : 'Edit'}}</button></td> -->
+<td><button class="btn btn-danger" (click)="onDelete()"> Delete </button></td>
