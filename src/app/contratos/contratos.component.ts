@@ -61,8 +61,8 @@ export class ContratosComponent implements OnInit {
   }
 
   onDelete(contrato: Contrato): void {
-    this.contratos = this.contratos.filter(h => h !== contrato);
     this.contratoService.deleteContrato(contrato,  this.contratoService.key).subscribe();
+    this.contratos = this.contratos.filter(h => h !== contrato);
   }
 
   validateKey() {

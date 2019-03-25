@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prestart": "npm i",
     "start": "node index.js",
     "build": "ng build",
     "test": "mocha --timeout 10000",
