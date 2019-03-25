@@ -15,8 +15,8 @@ COPY contratoModeldb.js .
 # COPY indexRouter.js .
 # COPY userCtrl.js .
 # COPY presupuestoCtrl.js .
-# COPY passportConfig.js .
-# COPY jwtHelper.js .
+COPY setupdb.js .
+COPY apikeys.js .
 COPY dist dist
 
 #RUN ng build --prod
