@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,6 +41,20 @@ export class ContratoService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  setApikey(token) {
+    alert(token);
+
+    window.localStorage.setItem('token', token);
+
+  }
+
+
+  getApikey() {
+
+    return window.localStorage.getItem('token');
+
   }
 
   getContratos(key): Observable<Contrato[]> {
@@ -104,7 +120,7 @@ export class ContratoService {
   }
 
   deleteContrato2(contrato: Contrato, key) {
-    return this.http.delete(this.contratosUrl + '/contratos/'  + contrato.NoContrato  + '?apikey=' + key);
+    return this.http.delete(this.contratosUrl + '/contratos/' + contrato.NoContrato + '?apikey=' + key);
   }
 
 }
