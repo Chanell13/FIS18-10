@@ -43,17 +43,16 @@ export class ContratoService {
     };
   }
 
-  setApikey(token) {
-    alert(token);
+  setApikey(key: string) {
 
-    window.localStorage.setItem('token', token);
+    sessionStorage.setItem('key', key);
 
   }
 
 
   getApikey() {
 
-    return window.localStorage.getItem('token');
+    return sessionStorage.getItem('key');
 
   }
 

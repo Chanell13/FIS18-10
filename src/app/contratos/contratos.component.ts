@@ -11,8 +11,6 @@ import { ContratoService } from '../contrato.service';
 export class ContratosComponent implements OnInit {
 
   constructor(private contratoService: ContratoService) { }
-  myLocalStorage = window.localStorage;
-
   key: string;
   mostrarApiKey = true;
   contratos: Contrato[];
@@ -35,28 +33,32 @@ export class ContratosComponent implements OnInit {
   msg = '';
 
   getContratos(): void {
-    // if (this.key != null) { this.mostrarApiKey = false; }
+    if (this.contratoService.key != null) { this.mostrarApiKey = false; }
     this.contratoService.getContratos(this.contratoService.key)
       .subscribe((contratos) => this.contratos = contratos);
   }
 
   addContrato(): void {
     this.contratoService.addContrato(this.newContrato, this.contratoService.key)
-      .subscribe(() => {
-        this.contratos.push(this.newContrato);
-        this.newContrato = {
-          NoContrato: null,
-          Nombre: null,
-          Apellido: null,
-          Puesto: null,
-          Categoria: null,
-          TipoContrato: null,
-          Sueldo: null,
-          NoCandidato: null,
-          FechaInicio: null,
-          FechaFin: null
+      .subscribe((res) => {
+        if (res === 'Created') {
+          this.contratos.push(this.newContrato);
+          this.newContrato = {
+            NoContrato: null,
+            Nombre: null,
+            Apellido: null,
+            Puesto: null,
+            Categoria: null,
+            TipoContrato: null,
+            Sueldo: null,
+            NoCandidato: null,
+            FechaInicio: null,
+            FechaFin: null
 
-        };
+          };
+        } else {
+          alert('invalid apikey');
+        }
       });
   }
   onEdit(contrato: Contrato): void {
@@ -73,11 +75,8 @@ export class ContratosComponent implements OnInit {
     // this.contratoService.nct = this.contrato.NoCandidato;
     //  alert(this.contratoService.nct);
     this.contratoService.key = this.key;
-    // this.contratoService.setApikey(this.contratoService.key);
-
-    this.myLocalStorage.setItem('apikey', JSON.stringify({ 'dummy': 'this.key' }));
-
-    alert(this.contratoService.key);
+    this.contratoService.setApikey(this.key);
+    // alert(this.contratoService.key);
     this.getContratos();
   }
 
@@ -86,7 +85,7 @@ export class ContratosComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.key = this.contratoService.getApikey();
+    this.contratoService.key = this.contratoService.getApikey();
     this.getContratos();
   }
 }

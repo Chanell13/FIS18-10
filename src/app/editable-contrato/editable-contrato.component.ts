@@ -48,22 +48,23 @@ export class EditableContratoComponent implements OnInit {
           }
         }
       );
-      setTimeout(() => { location.reload(); }, 1500);
+      setTimeout(() => { location.reload(); }, 2000);
     }
 
   }
 
   onPrint(): void {
     this.contratoService.nct = this.contrato.NoCandidato;
-    alert(this.contratoService.nct);
+    // alert(this.contratoService.nct);
     // this.contrato.NoContrato
     this.router.navigateByUrl('/detalles');
   }
+
   onDelete(): void {
-    this.deleting = !this.deleting;
 
     this.contratoService.deleteContrato2(this.contrato, this.contratoService.key).subscribe();
-    setTimeout(() => { location.reload(); }, 1200);
+    // this.deleting = !this.deleting;
+    setTimeout(() => { location.reload(); }, 2000);
     //  refresca la pagina completa
   }
 
