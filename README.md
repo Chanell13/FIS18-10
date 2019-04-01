@@ -1,21 +1,69 @@
-Trabajo realizado:
-Todos los aspectos básicos
-Extra:
-Interfaz gráfica con botón de imprimir el contrato final.
-Uso de Angular routing.
+# Deploy a MongoDB
 
+## 1)Create the headless service configuration file.
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-headless-service
+  labels:
+    app: mongodb
+spec:
+  selector:
+    app: mongodb
+  ports:
+  - port: 27017
+    targetPort: db-port
+  type: ClusterIP
+```
 
-Pruebas en Postman
-https://github.com/Chanell13/FIS18-10/blob/master/ProyectoFinalContrato.postman_collection.rar
+## 2) Create the deploy configuration file.
+```yaml
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mongo-statefulset
+  labels:
+    app: mongodb
+spec:
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+          ports:
+            - containerPort: 27017
+              name: db-port
+```			  
 
-Monitorización de Git con Travis.ci
-https://travis-ci.org/Chanell13/FIS18-10/builds/478200556
+## 3)  Deploy the Service
+```bash
+$ kubectl apply -f mongo-headless-service.yaml
+service "mongo" created
+```
 
-Despliegue en Heroku
-https://fis2018-10.herokuapp.com
+## 4)  Deploy the Service
+```bash
+$ kubectl apply -f mongo-statefulset.yaml
+statefulset "mongo" created
+```
 
-Presentación
-https://github.com/Chanell13/FIS18-10/blob/master/Presentacion%20Proyecto%20cloud-fis-10.rar
+## 5) Verify the service and deploy.
+```bash
+$ kubectl get service mongo
+NAME    TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)     AGE
+mongo   ClusterIP   None         <none>        27017/TCP   5s
+```
 
-
-
+```bash
+$ kubectl get statefulset mongo
+NAME    DESIRED   CURRENT   AGE
+mongo   3         3         1m
+```
+## 5) Verify logs.
+```bash
+$ kubectl logs mongo
+```
